@@ -1,4 +1,4 @@
-package com.zou;
+package com.zou.dao;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
