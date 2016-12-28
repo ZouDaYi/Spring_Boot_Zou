@@ -20,6 +20,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.CacheManager;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -54,13 +57,14 @@ public class SpirngBootZouApplicationTests {
 
 
     //测试数据库连接和CRUD
-//    @Autowired
-//    UserRepository userRepository;
-//    @Test
-//    public void test() throws Exception {
-//        //创建10条记录
-//        userRepository.save(new User("AAA", 10));
-//        userRepository.save(new User("BBB", 20));
+    @Autowired
+    UserRepository userRepository;
+    @Test//事务名  隔离级别  传播行为
+    @Transactional(value="One",isolation = Isolation.DEFAULT,propagation = Propagation.REQUIRED)
+    public void test() throws Exception {
+        //创建10条记录
+        userRepository.save(new User("AAA", 10));
+        userRepository.save(new User("BBB", 20));
 //        userRepository.save(new User("CCC", 30));
 //        userRepository.save(new User("DDD", 40));
 //        userRepository.save(new User("EEE", 50));
@@ -81,7 +85,7 @@ public class SpirngBootZouApplicationTests {
 //        userRepository.delete(userRepository.findByName("AAA"));
 //        // 测试findAll, 查询所有记录, 验证上面的删除是否成功
 //        Assert.assertEquals(9, userRepository.findAll().size());
-//    }
+    }
     //测试数据库连接和CRUD
 
 
