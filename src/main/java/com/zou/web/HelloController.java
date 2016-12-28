@@ -30,8 +30,8 @@ public class HelloController {
 
     @RequestMapping("/")
     public String index(ModelMap map) throws Exception{
-        throw new MyException("发生错误2");
-//        map.addAttribute("host", "http://blog.didispace.com");
-//        return "index";
+//        throw new MyException("发生错误2");
+        map.addAttribute("host", "http://www.sxy.com");
+        return "index";
     }
 }

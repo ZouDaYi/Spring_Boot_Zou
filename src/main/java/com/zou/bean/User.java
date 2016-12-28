@@ -1,12 +1,30 @@
 package com.zou.bean;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  * Created by Administrator on 2016/12/27.
  */
+@Entity
 public class User {
+    @Id
+    @GeneratedValue
     private Long id;
+    @Column(nullable = false)
     private String name;
-    private String age;
+    @Column(nullable = false)
+    private Integer age;
+
+    public User(){
+
+    }
+    public User(String name,Integer age){
+        this.name=name;
+        this.age=age;
+    }
 
     public Long getId() {
         return id;
@@ -24,11 +42,11 @@ public class User {
         this.name = name;
     }
 
-    public String getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 }
