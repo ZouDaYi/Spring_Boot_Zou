@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by Administrator on 2016/12/27.
+ * 统一异常处理
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
