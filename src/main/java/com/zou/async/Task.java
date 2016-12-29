@@ -1,4 +1,4 @@
-package com.zou.bean.async;
+package com.zou.async;
 
 /**
  * Created by Administrator on 2016/12/29.

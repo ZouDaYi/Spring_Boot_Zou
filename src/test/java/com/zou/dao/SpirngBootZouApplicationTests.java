@@ -1,29 +1,11 @@
 package com.zou.dao;
 
-import com.zou.bean.TestBean;
-import com.zou.bean.User;
-import com.zou.bean.UserRepository;
-import com.zou.bean.async.Task;
-import com.zou.bean.mogo.MogoRepository;
-import com.zou.bean.mogo.MongoDB;
-import com.zou.bean.myBatis.MyBatisUser;
-import com.zou.bean.myBatis.UserMapper;
-import com.zou.bean.p.PUser;
-import com.zou.bean.p.PUserRepository;
-import com.zou.bean.s.Message;
-import com.zou.bean.s.MessageRepository;
-import org.junit.Before;
-import org.junit.Assert;
+import com.zou.async.Task;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cache.CacheManager;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.concurrent.Future;
 
@@ -117,7 +99,7 @@ public class SpirngBootZouApplicationTests {
 //    public void setUp() {
 //        mogoRepository.deleteAll();
 //    }
-
+//
 //    @Test
 //    public void testMogo() throws Exception {
 //        // 创建三个User，并验证User总数

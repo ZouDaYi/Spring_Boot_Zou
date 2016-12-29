@@ -1,4 +1,4 @@
-package com.zou.bean.scheduled;
+package com.zou.scheduled;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
