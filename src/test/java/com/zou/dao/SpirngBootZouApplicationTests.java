@@ -3,6 +3,7 @@ package com.zou.dao;
 import com.zou.bean.TestBean;
 import com.zou.bean.User;
 import com.zou.bean.UserRepository;
+import com.zou.bean.async.Task;
 import com.zou.bean.mogo.MogoRepository;
 import com.zou.bean.mogo.MongoDB;
 import com.zou.bean.myBatis.MyBatisUser;
@@ -23,6 +24,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.concurrent.Future;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -57,14 +60,14 @@ public class SpirngBootZouApplicationTests {
 
 
     //测试数据库连接和CRUD
-    @Autowired
-    UserRepository userRepository;
-    @Test//事务名  隔离级别  传播行为
-    @Transactional(value="One",isolation = Isolation.DEFAULT,propagation = Propagation.REQUIRED)
-    public void test() throws Exception {
-        //创建10条记录
-        userRepository.save(new User("AAA", 10));
-        userRepository.save(new User("BBB", 20));
+//    @Autowired
+//    UserRepository userRepository;
+//    @Test//事务名  隔离级别  传播行为
+//    @Transactional(value="One",isolation = Isolation.DEFAULT,propagation = Propagation.REQUIRED)
+//    public void test() throws Exception {
+//        //创建10条记录
+//        userRepository.save(new User("AAA", 10));
+//        userRepository.save(new User("BBB", 20));
 //        userRepository.save(new User("CCC", 30));
 //        userRepository.save(new User("DDD", 40));
 //        userRepository.save(new User("EEE", 50));
@@ -85,7 +88,7 @@ public class SpirngBootZouApplicationTests {
 //        userRepository.delete(userRepository.findByName("AAA"));
 //        // 测试findAll, 查询所有记录, 验证上面的删除是否成功
 //        Assert.assertEquals(9, userRepository.findAll().size());
-    }
+//    }
     //测试数据库连接和CRUD
 
 
@@ -147,4 +150,28 @@ public class SpirngBootZouApplicationTests {
 //        MyBatisUser myBatisUser = userMapper.findByName("zdy");
 //        Assert.assertEquals(20, myBatisUser.getAge().intValue());
 //    }
+    //测试MyBatis
+
+
+    //测试异步调用
+
+    @Autowired
+    private Task task;
+    @Test
+    public void testTask() throws Exception {
+        long start = System.currentTimeMillis();
+        Future<String> task1 = task.doTaskOne();
+        Future<String> task2 = task.doTaskTwo();
+        Future<String> task3 = task.doTaskThree();
+        while(true) {
+            if(task1.isDone() && task2.isDone() && task3.isDone()) {
+                // 三个任务都调用完成，退出循环等待
+                break;
+            }
+            Thread.sleep(1000);
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("任务全部完成，总耗时：" + (end - start) + "毫秒");
+    }
+    //测试异步调用
 }
