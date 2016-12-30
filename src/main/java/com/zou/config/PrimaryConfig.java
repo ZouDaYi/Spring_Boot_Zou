@@ -18,8 +18,8 @@
 //import java.util.Map;
 //
 //@Configuration
-//@EnableTransactionManagement
-//@EnableJpaRepositories(
+//@EnableTransactionManagement//声名式事务
+//@EnableJpaRepositories(//取代xml形式的配置文件
 //        entityManagerFactoryRef="entityManagerFactoryPrimary",
 //        transactionManagerRef="transactionManagerPrimary",
 //        basePackages= { "com.zou.bean.p" }) //设置Repository所在位置

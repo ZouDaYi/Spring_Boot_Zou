@@ -1,7 +1,9 @@
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="ehcache.xsd">
     <cache name="users"
+    <!--最大堆内存-->
            maxEntriesLocalHeap="200"
+    <!--缓存失效时间-->
            timeToLiveSeconds="600">
     </cache>
 </ehcache>

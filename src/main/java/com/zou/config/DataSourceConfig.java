@@ -24,8 +24,8 @@
 //
 //
 //    @Bean(name = "secondaryDataSource")
-//    @Qualifier("secondaryDataSource")
-//    @Primary
+//    @Qualifier("secondaryDataSource")//注释指定注入 Bean 的名称
+//    @Primary//自动装配时当出现多个Bean候选者时，被注解为@Primary的Bean将作为首选者，否则将抛出异常
 //    @ConfigurationProperties(prefix="spring.datasource.secondary")
 //    public DataSource secondaryDataSource() {
 //        return DataSourceBuilder.create().build();
