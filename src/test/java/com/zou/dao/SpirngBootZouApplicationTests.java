@@ -1,10 +1,19 @@
 package com.zou.dao;
 
 import com.zou.async.Task;
+import com.zou.bean.p.PUser;
+import com.zou.bean.p.PUserRepository;
+import com.zou.bean.s.Message;
+import com.zou.bean.s.MessageRepository;
+import com.zou.mail.Mail;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.concurrent.Future;
@@ -12,16 +21,16 @@ import java.util.concurrent.Future;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SpirngBootZouApplicationTests {
-
+//
 //    @Autowired
 //    private CacheManager cacheManager;
 
-//    //测试多数据源
+    //测试多数据源
 //    @Autowired
 //    private PUserRepository puserRepository;
 //    @Autowired
 //    private MessageRepository messageRepository;
-
+//
 //    @Test
 //    public void testManyData() throws Exception {
 //        puserRepository.save(new PUser("aaa", 10));
@@ -37,8 +46,17 @@ public class SpirngBootZouApplicationTests {
 //    }
     //测试多数据源
 
-
-
+    @Autowired
+    private JavaMailSender mailSender;
+    @Test
+    public void sendSimpleMail() throws Exception {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("1039442726@qq.com");
+        message.setTo("2850208202@qq.com");
+        message.setSubject("主题：简单邮件");
+        message.setText("测试邮件内容");
+        mailSender.send(message);
+    }
 
 
     //测试数据库连接和CRUD
@@ -48,34 +66,25 @@ public class SpirngBootZouApplicationTests {
 //    @Transactional(value="One",isolation = Isolation.DEFAULT,propagation = Propagation.REQUIRED)
 //    public void test() throws Exception {
 //        //创建10条记录
-//        userRepository.save(new User("AAA", 10));
-//        userRepository.save(new User("BBB", 20));
-//        userRepository.save(new User("CCC", 30));
-//        userRepository.save(new User("DDD", 40));
-//        userRepository.save(new User("EEE", 50));
-//        userRepository.save(new User("FFF", 60));
-//        userRepository.save(new User("GGG", 70));
-//        userRepository.save(new User("HHH", 80));
-//        userRepository.save(new User("III", 90));
-//        userRepository.save(new User("JJJ", 100));
+//        userRepository.save(new User("111", 10));
+//        userRepository.save(new User("222", 20));
+//        userRepository.save(new User("333", 30));
+//        userRepository.save(new User("444", 40));
+//        userRepository.save(new User("555", 50));
+//        userRepository.save(new User("666", 60));
+//        userRepository.save(new User("777", 70));
+//        userRepository.save(new User("888", 80));
+//        userRepository.save(new User("999", 90));
+//        userRepository.save(new User("000", 100));
 //        //测试findAll, 查询所有记录
 //        Assert.assertEquals(10, userRepository.findAll().size());
-//        // 测试findByName, 查询姓名为FFF的User
-//        Assert.assertEquals(60, userRepository.findByName("FFF").getAge().longValue());
-//        // 测试findUser, 查询姓名为FFF的User
-//        Assert.assertEquals(60, userRepository.findUser("FFF").getAge().longValue());
-//        // 测试findByNameAndAge, 查询姓名为FFF并且年龄为60的User
-//        Assert.assertEquals("FFF", userRepository.findByNameAndAge("FFF", 60).getName());
-//        // 测试删除姓名为AAA的User
-//        userRepository.delete(userRepository.findByName("AAA"));
-//        // 测试findAll, 查询所有记录, 验证上面的删除是否成功
+//        Assert.assertEquals(60, userRepository.findByName("666").getAge().longValue());
+//        Assert.assertEquals(60, userRepository.findUser("555").getAge().longValue());
+//        Assert.assertEquals("FFF", userRepository.findByNameAndAge("666", 60).getName());
+//        userRepository.delete(userRepository.findByName("1111"));
 //        Assert.assertEquals(9, userRepository.findAll().size());
 //    }
     //测试数据库连接和CRUD
-
-
-
-
 
 
     //测试缓存
@@ -87,8 +96,6 @@ public class SpirngBootZouApplicationTests {
 //        System.out.println("第二次查询：" + u2.getAge());
 //    }
     //测试缓存
-
-
 
 
     //测试MongoDB
@@ -119,9 +126,6 @@ public class SpirngBootZouApplicationTests {
 //测试MongoDB
 
 
-
-
-
     //测试MyBatis
 //    @Autowired
 //    private UserMapper userMapper;
@@ -137,23 +141,35 @@ public class SpirngBootZouApplicationTests {
 
     //测试异步调用
 
-    @Autowired
-    private Task task;
-    @Test
-    public void testTask() throws Exception {
-        long start = System.currentTimeMillis();
-        Future<String> task1 = task.doTaskOne();
-        Future<String> task2 = task.doTaskTwo();
-        Future<String> task3 = task.doTaskThree();
-        while(true) {
-            if(task1.isDone() && task2.isDone() && task3.isDone()) {
-                // 三个任务都调用完成，退出循环等待
-                break;
-            }
-            Thread.sleep(1000);
-        }
-        long end = System.currentTimeMillis();
-        System.out.println("任务全部完成，总耗时：" + (end - start) + "毫秒");
-    }
+//    @Autowired
+//    private Task task;
+//    @Test
+//    public void testTask() throws Exception {
+//        long start = System.currentTimeMillis();
+//        Future<String> task1 = task.doTaskOne();
+//        Future<String> task2 = task.doTaskTwo();
+//        Future<String> task3 = task.doTaskThree();
+//        while(true) {
+//            if(task1.isDone() && task2.isDone() && task3.isDone()) {
+//                // 三个任务都调用完成，退出循环等待
+//                break;
+//            }
+//            Thread.sleep(1000);
+//        }
+//        long end = System.currentTimeMillis();
+//        System.out.println("任务全部完成，总耗时：" + (end - start) + "毫秒");
+//    }
     //测试异步调用
+
+
+//@Autowired
+//private StringRedisTemplate stringRedisTemplate;
+//    @Test
+//    public void test() throws Exception {
+//        // 保存字符串
+//        stringRedisTemplate.getClass();
+//        stringRedisTemplate.opsForValue().set("aaa", "111");
+//        Assert.assertEquals("111", stringRedisTemplate.opsForValue().get("aaa"));
+//    }
+
 }
